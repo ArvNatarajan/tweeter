@@ -6,20 +6,31 @@
 html {
   box-sizing: border-box;
 }
+
 *, *:before, *:after {
   box-sizing: inherit;
 }
 
-/*
- * Global layout stuff
- */
-
 body {
-  margin: 0;
   color: #244751;
   background-color: #eee;
+  font-family: 'Roboto Condensed', sans-serif;
 }
 
-/*
- * Additional CSS can be defined below or in other CSS files, as per instructions
- */
+main {
+  width: 450px;
+  margin: auto;
+  background-color: #fff;
+  padding: 100px 2em 1em 2em;
+}
+
+/*#new-tweet {
+}*/
+
+#tweet-container {
+  background-color: #fff;
+}
+
+p {
+  margin:0;
+}

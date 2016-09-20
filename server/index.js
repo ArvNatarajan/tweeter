@@ -9,6 +9,7 @@ const app         = express();
 
 const tweetsApi  = require('./api/tweets');
 const db         = require('./lib/db');
+// const cc         = require('../public/scripts/composer-char-counter');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
