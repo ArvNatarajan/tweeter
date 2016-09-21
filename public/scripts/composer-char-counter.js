@@ -1,13 +1,20 @@
+'use strict';
+
 $(document).ready(function() {
-  function charCounter() {
-    var currCount =  $(this).val().length;
-    var counterElement = $(this).siblings('span').html(140 - currCount);
+
+  const charCounter = (ev) => {
+    const el = ev.target;
+    const currCount = $(el).val().length;
+    const $counterElement = $('.counter');
+
+    $counterElement.text(140 - currCount)
 
     if (currCount > 140) {
-      $(counterElement).addClass('over-limit')
+      $counterElement.addClass('over-limit')
     } else {
-      $(counterElement).removeClass('over-limit');
+      $counterElement.removeClass('over-limit');
     }
-  }
-  $('.input-tweet').on("input", charCounter);
+  };
+
+  $('#input-tweet').on("input", charCounter);
 });
