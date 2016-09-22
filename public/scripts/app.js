@@ -38,9 +38,6 @@ $(document).ready(function () {
       "</section>"
     );
 
-    //Calculates time since tweet
-    const timeSinceTweet = Math.floor((Date.now() - new Date(created_at))
-
     // Specifies HTML for each tweet's footer
     const footerHTML = _.template(
     "<footer>" +
