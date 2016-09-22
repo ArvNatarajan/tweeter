@@ -42,7 +42,7 @@ $(document).ready(function () {
     const footerHTML = _.template(
     "<footer>" +
       "<div class='timestamp'>" +
-        "<p> ${Math.floor((Date.now() - new Date(<%= created_at %>))/86400000)} days ago..</p>" +
+        "<p> <%= Math.floor((Date.now() - new Date(created_at))/86400000) %> days ago..</p>" +
       "</div>" +
       "<div class='social-buttons'>" +
         "<i class='fa fa-font-awesome' aria-hidden='true'></i>" +
@@ -58,7 +58,6 @@ $(document).ready(function () {
               .append(headerHTML(tweet))
               .append(sectionHTML(tweet))
               .append(footerHTML(tweet));
-
   }
 
 
