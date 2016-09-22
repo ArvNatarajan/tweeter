@@ -23,6 +23,10 @@ $(document).ready(function () {
       "</header>"
     );
 
+    const safeContent = {
+      safeContent: _.escape(tweet.content.text)
+    }
+
     // Specifies HTML for each tweet's section
     const sectionHTML = _.template(
       "<section>" +
@@ -30,7 +34,7 @@ $(document).ready(function () {
           "<i class='fa fa-quote-left' aria-hidden='true'></i>" +
         "</div>" +
         "<p>" +
-          "<%= content.text %>" +
+          "<%= safeContent %>" +
         "</p>" +
         "<div>" +
           "<i class='fa fa-quote-right' aria-hidden='true'></i>" +
@@ -56,7 +60,7 @@ $(document).ready(function () {
     return  $('<article>')
               .addClass('tweet')
               .append(headerHTML(tweet))
-              .append(sectionHTML(tweet))
+              .append(sectionHTML(safeContent))
               .append(footerHTML(tweet));
   }
 
