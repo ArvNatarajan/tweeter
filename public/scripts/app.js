@@ -106,6 +106,7 @@ $(document).ready(function () {
   // New tweet slide toggle functionality
   $('#compose').click(function() {
     $('#new-tweet').slideToggle("slow");
+
   });
 
   // Event Listener for clicking on tweets
@@ -115,6 +116,8 @@ $(document).ready(function () {
 
   // On page load
   loadTweets();
+  // New tweet container is hidden by default
+  $('#new-tweet').hide();
 });
 
 // const validators = {

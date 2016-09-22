@@ -12,6 +12,7 @@ const db          = require('./lib/db');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
+app.use(cookieParser())
 
 db.connect((dbInstance) => {
   app.use('/tweets', tweetsApi(dbInstance));
