@@ -13,48 +13,56 @@ $(document).ready(function () {
   }
 
   const createTweetElement = (tweet) => {
+
     // Specifies HTML for each tweet's header
-    const headerHTML = `
-      <header>
-        <img src="${tweet.user.avatars.regular}" style="width:40px; height:40px;">
-        <h2>${tweet.user.name}</h2>
-        <p>${tweet.user.handle}</p>
-      </header>`;
+    const headerHTML = _.template(
+      "<header>" +
+        "<img src='<%= user.avatars.regular %>' style='width:40px; height:40px;'>" +
+        "<h2><%= user.name %></h2>" +
+        "<p><%= user.handle %></p>" +
+      "</header>"
+    );
 
     // Specifies HTML for each tweet's section
-    const sectionHTML = `
-      <section>
-        <div>
-          <i class="fa fa-quote-left" aria-hidden="true"></i>
-        </div>
-        <p>
-          ${tweet.content.text}
-        </p>
-        <div>
-          <i class="fa fa-quote-right" aria-hidden="true"></i>
-        </div
-      </section>`
+    const sectionHTML = _.template(
+      "<section>" +
+        "<div>" +
+          "<i class='fa fa-quote-left' aria-hidden='true'></i>" +
+        "</div>" +
+        "<p>" +
+          "<%= content.text %>" +
+        "</p>" +
+        "<div>" +
+          "<i class='fa fa-quote-right' aria-hidden='true'></i>" +
+        "</div>" +
+      "</section>"
+    );
+
+    //Calculates time since tweet
+    const timeSinceTweet = Math.floor((Date.now() - new Date(created_at))
 
     // Specifies HTML for each tweet's footer
-    const footerHTML = `
-    <footer>
-      <div class="timestamp">
-        <p>${Math.floor((Date.now() - new Date(tweet.created_at))/86400000)} days ago..</p>
-      </div>
-      <div class="social-buttons">
-        <i class="fa fa-font-awesome" aria-hidden="true"></i>
-        <i class="fa fa-retweet" aria-hidden="true"></i>
-        <i class="fa fa-heart" aria-hidden="true"></i>
-      </div>
-    </footer>`
+    const footerHTML = _.template(
+    "<footer>" +
+      "<div class='timestamp'>" +
+        "<p> <%= Math.floor((Date.now() - new Date(created_at))/86400000) %> days ago..</p>" +
+      "</div>" +
+      "<div class='social-buttons'>" +
+        "<i class='fa fa-font-awesome' aria-hidden='true'></i>" +
+        "<i class='fa fa-retweet' aria-hidden='true'></i>" +
+        "<i class='fa fa-heart' aria-hidden='true'></i>" +
+      "</div>" +
+    "</footer>"
+  );
 
     // Combines all three sections to prepare tweet
-    return $('<article>')
+    return  $('<article>')
               .addClass('tweet')
-              .append(headerHTML)
-              .append(sectionHTML)
-              .append(footerHTML);
+              .append(headerHTML(tweet))
+              .append(sectionHTML(tweet))
+              .append(footerHTML(tweet));
   }
+
 
   // On new tweet submission
   $('#tweet-form').on('submit', (ev) => {
@@ -97,6 +105,11 @@ $(document).ready(function () {
   // New tweet slide toggle functionality
   $('#compose').click(function() {
     $('#new-tweet').slideToggle("slow");
+  });
+
+  // Event Listener for clicking on tweets
+  $('#tweet-container').on('click', '.tweet', () => {
+    alert('Tweet, Tweet!');
   });
 
   // On page load
