@@ -1,6 +1,36 @@
 'use strict';
-
 $(document).ready(function () {
+  // New tweet container is hidden by default
+  $('#new-tweet').hide();
+  $('#logout').hide();
+
+  const getCookie = (name) => {
+    let value = "; " + document.cookie;
+    let parts = value.split("; " + name + "=");
+    if (parts.length === 2) return parts.pop().split(";").shift();
+  }
+
+
+  if(getCookie("username")) {
+    $('#login-form').hide();
+
+    $('#logout').show();
+
+    $('#login-display')
+    .append("You are logged in as: ")
+    .append(_.escape(getCookie("username")));
+  }
+
+
+  if(!getCookie("username")) {
+    $('#login-form').show();
+
+    $('#logout').hide();
+
+    $('#login-display')
+    .append("You are not logged in!")
+  }
+
 
   const renderTweets = (tweets) => {
     $('#tweet-container').empty();
@@ -93,9 +123,8 @@ $(document).ready(function () {
   }
 
   const validateForm = () => {
-
-
     const tweetLength = $('#input-tweet').val().length;
+
     if (tweetLength > 140) {
       return false;
     } else {
@@ -106,19 +135,18 @@ $(document).ready(function () {
   // New tweet slide toggle functionality
   $('#compose').click(function() {
     $('#new-tweet').slideToggle("slow");
-
-  });
-
-  // Event Listener for clicking on tweets
-  $('#tweet-container').on('click', '.tweet', () => {
-    alert('Tweet, Tweet!');
   });
 
   // On page load
   loadTweets();
-  // New tweet container is hidden by default
-  $('#new-tweet').hide();
+
 });
+// Event Listener for clicking on tweets
+// $('#tweet-container').on('click', '.tweet', () => {
+//   alert('Tweet, Tweet!');
+// });
+
+
 
 // const validators = {
 //   text: (val) => {

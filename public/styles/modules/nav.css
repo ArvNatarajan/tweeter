@@ -7,7 +7,7 @@
   padding: 0 2em;
   z-index: 10000;
   top: 0px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
 }
 
@@ -25,7 +25,27 @@
 }
 
 #nav-bar .nav-buttons {
+  display: inline-flex;
   margin-left: auto;
+  justify-content: space-around;
+}
+
+/*#login-form {
+  display: inline-flex;
+  height: 30px;
+  align-items: center;
+  justify-content: space-between;
+}*/
+
+#login-button {
+  padding: 5px 5px;
+  background-color: #3b2b24;
+  border-style: none;
+  border-width: 1px;
+  border-radius: 5px;
+  color: #eeebe7;
+  font-size: 15px;
+  box-shadow: 2px 2px 1px black;
 }
 
 #compose {
@@ -37,4 +57,8 @@
   color: #eeebe7;
   font-size: 20px;
   box-shadow: 2px 2px 1px black;
+}
+
+#login-display {
+  color: black;
 }

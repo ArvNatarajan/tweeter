@@ -19,6 +19,19 @@ db.connect((dbInstance) => {
   app.use('/tweets', tweetsApi(dbInstance));
 });
 
+app.post('/login', (req, res) => {
+  res.cookie('username', req.body.username);
+
+  res.redirect('/');
+})
+
+app.post('/logout', (req, res) => {
+  res.cookie('username', '');
+
+  res.redirect('/');
+})
+
+
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
