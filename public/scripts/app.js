@@ -4,29 +4,27 @@ $(document).ready(function () {
   $('#new-tweet').hide();
   $('#logout').hide();
 
+
   const getCookie = (name) => {
     let value = "; " + document.cookie;
     let parts = value.split("; " + name + "=");
     if (parts.length === 2) return parts.pop().split(";").shift();
   }
 
-
   if(getCookie("username")) {
+    //Hide login form
     $('#login-form').hide();
 
+    // Show logout button
     $('#logout').show();
 
+    // Display login status
     $('#login-display')
     .append("You are logged in as: ")
     .append(_.escape(getCookie("username")));
-  }
 
-
-  if(!getCookie("username")) {
-    $('#login-form').show();
-
-    $('#logout').hide();
-
+  } else {
+    // Display login status
     $('#login-display')
     .append("You are not logged in!")
   }
@@ -45,45 +43,50 @@ $(document).ready(function () {
   const createTweetElement = (tweet) => {
 
     // Specifies HTML for each tweet's header
-    const headerHTML = _.template(
-      "<header>" +
-        "<img src='<%= user.avatars.regular %>' style='width:40px; height:40px;'>" +
-        "<h2><%= user.name %></h2>" +
-        "<p><%= user.handle %></p>" +
-      "</header>"
+    const headerHTML = _.template(`
+      <header>
+        <img src='<%= user.avatars.regular %>'>
+        <h2><%= user.name %></h2>
+        <p><%= user.handle %></p>
+      </header>`
     );
 
+    // Escape tweet content
     const safeContent = {
       safeContent: _.escape(tweet.content.text)
     }
 
     // Specifies HTML for each tweet's section
-    const sectionHTML = _.template(
-      "<section>" +
-        "<div>" +
-          "<i class='fa fa-quote-left' aria-hidden='true'></i>" +
-        "</div>" +
-        "<p>" +
-          "<%= safeContent %>" +
-        "</p>" +
-        "<div>" +
-          "<i class='fa fa-quote-right' aria-hidden='true'></i>" +
-        "</div>" +
-      "</section>"
+    const sectionHTML = _.template(`
+      <section>
+        <div>
+          <i class='fa fa-quote-left' aria-hidden='true'></i>
+        </div>
+        <p>
+          <%= safeContent %>
+        </p>
+        <div>
+          <i class='fa fa-quote-right' aria-hidden='true'></i>
+        </div>
+      </section>`
     );
 
+    const daysSincePost = {
+      daysSincePost: Math.floor((Date.now() - new Date(tweet.created_at))/86400000)
+    }
+
     // Specifies HTML for each tweet's footer
-    const footerHTML = _.template(
-    "<footer>" +
-      "<div class='timestamp'>" +
-        "<p> <%= Math.floor((Date.now() - new Date(created_at))/86400000) %> days ago..</p>" +
-      "</div>" +
-      "<div class='social-buttons'>" +
-        "<i class='fa fa-font-awesome' aria-hidden='true'></i>" +
-        "<i class='fa fa-retweet' aria-hidden='true'></i>" +
-        "<i class='fa fa-heart' aria-hidden='true'></i>" +
-      "</div>" +
-    "</footer>"
+    const footerHTML = _.template(`
+    <footer>
+      <div class='timestamp'>
+        <p> <%= daysSincePost %> days ago..</p>
+      </div>
+      <div class='social-buttons'>
+        <i class='fa fa-font-awesome' aria-hidden='true'></i>
+        <i class='fa fa-retweet' aria-hidden='true'></i>
+        <i class='fa fa-heart' aria-hidden='true'></i>
+      </div>
+    </footer>`
   );
 
     // Combines all three sections to prepare tweet
@@ -91,7 +94,7 @@ $(document).ready(function () {
               .addClass('tweet')
               .append(headerHTML(tweet))
               .append(sectionHTML(safeContent))
-              .append(footerHTML(tweet));
+              .append(footerHTML(daysSincePost));
   }
 
 
@@ -135,27 +138,10 @@ $(document).ready(function () {
   // New tweet slide toggle functionality
   $('#compose').click(function() {
     $('#new-tweet').slideToggle("slow");
+    $('#input-tweet').focus();
   });
 
   // On page load
   loadTweets();
 
 });
-// Event Listener for clicking on tweets
-// $('#tweet-container').on('click', '.tweet', () => {
-//   alert('Tweet, Tweet!');
-// });
-
-
-
-// const validators = {
-//   text: (val) => {
-//     return val.length > 10 && val.length <= 140;
-//   }
-// };
-//
-// $('#tweet-form').serializeArray().forEach((field) => {
-//   if(!validators[field.name](field.value)){
-//     console.log(`The ${field.name} field failed!`)
-//   }
-// });
