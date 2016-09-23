@@ -62,3 +62,14 @@
 #login-display {
   color: black;
 }
+
+#logout {
+  padding: 5px 5px;
+  background-color: #3b2b24;
+  border-style: none;
+  border-width: 1px;
+  border-radius: 5px;
+  color: #eeebe7;
+  font-size: 15px;
+  box-shadow: 2px 2px 1px black;
+}
